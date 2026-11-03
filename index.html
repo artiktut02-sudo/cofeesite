@@ -194,7 +194,7 @@
     .footer-love { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 10px; letter-spacing: 1px; }
     .footer-copy { font-size: 0.8rem; color: #888; }
     
-    /* Кнопка входа в админку (незаметная) */
+    /* Кнопка входа в админку */
     .admin-trigger { font-size: 0.75rem; color: #666; margin-top: 15px; display: inline-block; cursor: pointer; text-decoration: underline; }
     .admin-trigger:hover { color: var(--accent); }
 
@@ -212,11 +212,9 @@
     }
     .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: var(--text-muted); }
     .modal-box h3 { text-align: center; margin-bottom: 20px; font-size: 1.5rem; }
-    
-    /* Поля ввода в модалке */
     .modal-input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); font-size: 1rem; }
 
-    /* Админка (таблица) */
+    /* Админка */
     .admin-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95rem; }
     .admin-table th, .admin-table td { padding: 10px; border-bottom: 1px solid var(--card-border); text-align: left; }
     .admin-table th { background: var(--bg-color); font-weight: 600; }
@@ -459,9 +457,12 @@
     <div class="modal-box">
       <span class="modal-close" onclick="toggleModal('loginModal', false)">&times;</span>
       <h3>Вход в панель управления</h3>
-      <input type="text" class="modal-input" id="loginUser" placeholder="Логин (admin)">
-      <input type="password" class="modal-input" id="loginPass" placeholder="Пароль (1234)">
+      <input type="text" class="modal-input" id="loginUser" placeholder="Логин">
+      <input type="password" class="modal-input" id="loginPass" placeholder="Пароль">
       <button class="btn" style="width: 100%;" onclick="checkLogin()">Войти</button>
+      <p style="text-align: center; font-size: 0.85rem; color: #888; margin-top: 15px;">
+        (Демо-доступ: логин <b>admin</b>, пароль <b>1234</b>)
+      </p>
       <p id="loginError" style="color: red; text-align: center; margin-top: 10px; display: none;">Неверный логин или пароль</p>
     </div>
   </div>
@@ -480,9 +481,7 @@
             <th>Дата</th>
           </tr>
         </thead>
-        <tbody id="requestsList">
-          <!-- Сюда падают заявки -->
-        </tbody>
+        <tbody id="requestsList"></tbody>
       </table>
       <p class="empty-msg" id="emptyMsg">Пока нет ни одной заявки.</p>
 
@@ -494,14 +493,12 @@
   </div>
 
   <script>
-    // ==== АНИМАЦИЯ ЗАГРУЗКИ ====
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('preloader').classList.add('hidden');
-      }, 3500); // 3.5 секунды полета кружки
+      }, 3500); 
     });
 
-    // ==== ТЕМА ====
     const themeBtn = document.getElementById('themeBtn');
     const body = document.body;
     const currentTheme = localStorage.getItem('theme');
@@ -512,7 +509,6 @@
       else { themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); }
     });
 
-    // ==== КНОПКА НАВЕРХ ====
     const backToTopBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) backToTopBtn.classList.add('show');
@@ -520,7 +516,6 @@
     });
     backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-    // ==== АНИМАЦИЯ ПОЯВЛЕНИЯ ====
     const fadeElements = document.querySelectorAll('.fade-in');
     const fadeObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -529,7 +524,6 @@
     }, { threshold: 0.1 });
     fadeElements.forEach(el => fadeObserver.observe(el));
 
-    // ==== FAQ АККОРДЕОН ====
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
       const question = item.querySelector('.faq-question');
@@ -541,7 +535,6 @@
       });
     });
 
-    // ==== ЛАЙТБОКС ====
     const lightbox = document.getElementById('lightbox');
     const lightboxContent = document.getElementById('lightbox-content');
     function openLightbox(text) {
@@ -558,7 +551,6 @@
     // ==== ЛОГИКА БРОНИРОВАНИЯ И АДМИНКИ =======
     // ==========================================
     
-    // Функция открытия/закрытия модальных окон
     function toggleModal(modalId, show) {
       const modal = document.getElementById(modalId);
       if (show) {
@@ -570,37 +562,33 @@
       }
     }
 
-    // Открытие модалки логина
     document.getElementById('adminTrigger').addEventListener('click', () => {
       toggleModal('loginModal', true);
     });
 
-    // Проверка логина/пароля
+    // ИСПРАВЛЕННАЯ ФУНКЦИЯ ПРОВЕРКИ
     function checkLogin() {
-      const user = document.getElementById('loginUser').value;
-      const pass = document.getElementById('loginPass').value;
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
       
       if (user === 'admin' && pass === '1234') {
         document.getElementById('loginError').style.display = 'none';
         toggleModal('loginModal', false);
         toggleModal('adminPanel', true);
-        renderAdminTable(); // Отрисовываем заявки
+        renderAdminTable();
       } else {
         document.getElementById('loginError').style.display = 'block';
       }
     }
 
-    // Выход из админки
     function logoutAdmin() {
       toggleModal('adminPanel', false);
       document.getElementById('loginUser').value = '';
       document.getElementById('loginPass').value = '';
     }
 
-    // --- БАЗА ДАННЫХ ЗАЯВОК (в памяти браузера) ---
     let requests = JSON.parse(localStorage.getItem('coffeeRequests')) || [];
 
-    // Отправка формы на сайте
     const bookForm = document.getElementById('bookForm');
     const successMsg = document.getElementById('successMsg');
     
@@ -611,11 +599,9 @@
       const phone = document.getElementById('clientPhone').value;
       const date = new Date().toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
 
-      // Сохраняем в базу
       requests.push({ name, phone, date });
       localStorage.setItem('coffeeRequests', JSON.stringify(requests));
 
-      // Показываем сообщение об успехе
       bookForm.querySelector('button').style.display = 'none';
       successMsg.style.display = 'block';
       
@@ -626,7 +612,6 @@
       }, 4000);
     });
 
-    // Отрисовка таблицы в админке
     function renderAdminTable() {
       const list = document.getElementById('requestsList');
       const empty = document.getElementById('emptyMsg');
@@ -644,7 +629,6 @@
       }
     }
 
-    // Очистка всех заявок
     function clearRequests() {
       if (confirm('Вы уверены, что хотите удалить все заявки?')) {
         requests = [];
