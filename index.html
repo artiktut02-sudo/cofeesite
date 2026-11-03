@@ -115,7 +115,13 @@
     .team { background: var(--bg-color); }
     .team-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
     .team-member { text-align: center; max-width: 200px; }
-    .team-avatar { width: 120px; height: 120px; border-radius: 50%; background: var(--accent); color: var(--accent-text); display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 15px; border: 4px solid var(--card-border); }
+    /* Иллюстрации бариста */
+    .team-avatar { 
+      width: 120px; height: 120px; border-radius: 50%; 
+      background: var(--card-bg); border: 4px solid var(--accent); 
+      display: flex; align-items: center; justify-content: center; 
+      margin: 0 auto 15px; overflow: hidden;
+    }
     .team-member h3 { font-size: 1.2rem; margin-bottom: 5px; }
     .team-member p { font-size: 0.9rem; color: var(--text-muted); }
 
@@ -133,11 +139,17 @@
     .menu-item { display: flex; justify-content: space-between; padding: 16px 20px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; font-size: 1.1rem; }
     .menu-item span:last-child { font-weight: 600; color: var(--accent); }
 
-    /* ===== Галерея ===== */
+    /* ===== Галерея (Умная) ===== */
     .gallery { background: var(--card-bg); }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-    .gallery-item { background: var(--bg-color); border: 2px dashed var(--card-border); border-radius: 16px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+    .gallery-item { 
+      background: var(--bg-color); border: 1px solid var(--card-border); border-radius: 16px; 
+      aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; 
+      cursor: pointer; transition: transform 0.2s, border-color 0.2s; overflow: hidden;
+    }
     .gallery-item:hover { transform: scale(1.05); border-color: var(--accent); }
+    /* 2D Иллюстрации для галереи */
+    .art-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
 
     /* Лайтбокс */
     .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; opacity: 0; transition: opacity 0.3s ease; }
@@ -188,7 +200,6 @@
     .footer-socials { margin-top: 15px; display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
     .footer-socials a { display: inline-block; padding: 10px 20px; background: rgba(255,255,255,0.1); border-radius: 8px; transition: 0.3s; }
     .footer-socials a:hover { background: var(--accent); color: var(--accent-text); }
-    /* Стиль для надписи "Ваша кофейня" */
     .footer-love { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 10px; letter-spacing: 1px; }
     .footer-copy { font-size: 0.8rem; color: #888; }
 
@@ -239,23 +250,49 @@
     </div>
   </section>
 
+  <!-- Блок Команда (2D аватарки) -->
   <section class="team fade-in">
     <div class="container">
       <h2>Наши бариста</h2>
-      <p class="demo-note">* Имена для демо. В вашей версии здесь будут фото и имена ваших сотрудников.</p>
+      <p class="demo-note">* Имена для демо. В вашей версии здесь будут фото ваших сотрудников.</p>
       <div class="team-grid">
         <div class="team-member">
-          <div class="team-avatar">👩</div>
+          <div class="team-avatar">
+            <!-- Векторный портрет девушки -->
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="50" fill="#efe6da"/>
+              <circle cx="50" cy="40" r="20" fill="#f4a261"/>
+              <path d="M30 40 Q50 10 70 40 Q70 60 50 60 Q30 60 30 40" fill="#2b2118"/>
+              <rect x="35" y="55" width="30" height="35" rx="10" fill="#e9c46a"/>
+            </svg>
+          </div>
           <h3>Алина</h3>
           <p>Старший бариста</p>
         </div>
         <div class="team-member">
-          <div class="team-avatar">🧔</div>
+          <div class="team-avatar">
+            <!-- Векторный портрет парня с бородой -->
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="50" fill="#efe6da"/>
+              <circle cx="50" cy="40" r="20" fill="#d4a373"/>
+              <path d="M30 35 Q50 15 70 35 Q70 65 50 65 Q30 65 30 35" fill="#2b2118"/>
+              <path d="M35 55 Q50 75 65 55 Q65 65 50 70 Q35 65 35 55" fill="#2b2118"/>
+              <rect x="35" y="55" width="30" height="35" rx="10" fill="#264653"/>
+            </svg>
+          </div>
           <h3>Дмитрий</h3>
           <p>Обжарщик</p>
         </div>
         <div class="team-member">
-          <div class="team-avatar">👱‍♀️</div>
+          <div class="team-avatar">
+            <!-- Векторный портрет девушки с хвостиком -->
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="50" fill="#efe6da"/>
+              <circle cx="50" cy="40" r="20" fill="#e9c46a"/>
+              <path d="M30 40 Q50 20 70 40 Q75 60 65 60 Q50 40 35 60 Q25 60 30 40" fill="#8a5a44"/>
+              <rect x="35" y="55" width="30" height="35" rx="10" fill="#e76f51"/>
+            </svg>
+          </div>
           <h3>Екатерина</h3>
           <p>Бариста-стажер</p>
         </div>
@@ -288,19 +325,70 @@
     </div>
   </section>
 
+  <!-- Галерея с 2D-иллюстрациями -->
   <section class="gallery fade-in">
     <div class="container">
       <h2>Галерея</h2>
-      <p class="demo-note">* Нажмите на фото, чтобы открыть его на весь экран (лайтбокс)</p>
+      <p class="demo-note">* Нажмите на картинку, чтобы открыть её (в вашей версии будут ваши фото)</p>
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox('Фото 1')">Фото 1</div>
-        <div class="gallery-item" onclick="openLightbox('Фото 2')">Фото 2</div>
-        <div class="gallery-item" onclick="openLightbox('Фото 3')">Фото 3</div>
-        <div class="gallery-item" onclick="openLightbox('Фото 4')">Фото 4</div>
+        
+        <!-- Иллюстрация 1: Чашка кофе с сердцем -->
+        <div class="gallery-item" onclick="openLightbox('Уютный кофе')">
+          <div class="art-img">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#e9c46a" opacity="0.2"/>
+              <path d="M30 60 L70 60 L65 85 L35 85 Z" fill="#fff"/>
+              <path d="M70 65 Q85 65 85 75 Q85 80 70 80" fill="none" stroke="#fff" stroke-width="4"/>
+              <rect x="40" y="50" width="20" height="10" fill="#6b4a33" rx="2"/>
+              <path d="M50 35 Q45 40 50 45 Q55 40 50 35" fill="#e76f51"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Иллюстрация 2: Круассан -->
+        <div class="gallery-item" onclick="openLightbox('Свежий круассан')">
+          <div class="art-img">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#2b2118" opacity="0.1"/>
+              <path d="M20 65 Q50 30 80 65 Q50 80 20 65" fill="#f4a261"/>
+              <path d="M30 60 Q50 45 70 60" fill="none" stroke="#e76f51" stroke-width="2"/>
+              <path d="M40 65 L50 50 L60 65" fill="none" stroke="#e76f51" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Иллюстрация 3: Кофейные зерна -->
+        <div class="gallery-item" onclick="openLightbox('Отборные зерна')">
+          <div class="art-img">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#6b4a33" opacity="0.15"/>
+              <ellipse cx="40" cy="45" rx="15" ry="20" fill="#6b4a33" transform="rotate(-30 40 45)"/>
+              <path d="M35 35 Q45 45 35 55" fill="none" stroke="#fff" stroke-width="2" transform="rotate(-30 40 45)"/>
+              
+              <ellipse cx="65" cy="60" rx="15" ry="20" fill="#8a5a44" transform="rotate(20 65 60)"/>
+              <path d="M60 50 Q70 60 60 70" fill="none" stroke="#fff" stroke-width="2" transform="rotate(20 65 60)"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Иллюстрация 4: Кусочек торта -->
+        <div class="gallery-item" onclick="openLightbox('Десерты')">
+          <div class="art-img">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#f4a261" opacity="0.2"/>
+              <rect x="25" y="50" width="50" height="30" fill="#e76f51" rx="4"/>
+              <rect x="25" y="50" width="50" height="10" fill="#fff" rx="2"/>
+              <circle cx="50" cy="40" r="8" fill="#e63946"/>
+              <path d="M50 35 L50 45 M45 40 L55 40" stroke="#fff" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
+  <!-- Окно лайтбокса -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <div class="lightbox-close">&times;</div>
     <div class="lightbox-content" id="lightbox-content">Фото</div>
@@ -363,105 +451,4 @@
       </div>
       <div class="faq-item">
         <div class="faq-question"><span>Есть ли безлактозное молоко?</span><span class="faq-icon">+</span></div>
-        <div class="faq-answer"><p>Конечно! Мы готовим кофе на обычном, безлактозном, миндальном, кокосовом и овсяном молоке.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="contacts fade-in" id="contacts">
-    <div class="container">
-      <h2>Как нас найти</h2>
-      <div class="info">
-        <p><strong>Адрес:</strong> г. Ваш город, ул. Ваша улица, 1</p>
-        <p><strong>Часы работы:</strong> Пн–Вс 09:00–21:00</p>
-        <p><strong>Телефон:</strong> +7 (999) 000-00-00</p>
-        <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">📍 <a href="#" style="text-decoration: underline;">Мы на карте (Яндекс.Карты)</a></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ОБНОВЛЕННЫЙ ПОДВАЛ -->
-  <footer>
-    <div class="container">
-      <div class="footer-socials">
-        <a href="#" onclick="alert('Здесь будет ваша ссылка'); return false;">ВКонтакте</a>
-        <a href="#" onclick="alert('Здесь будет ваша ссылка'); return false;">Telegram</a>
-      </div>
-      <!-- Твоя надпись -->
-      <p class="footer-love">Ваша кофейня — сделано с любовью ❤️</p>
-      <p class="footer-copy">© 2026. Все права защищены.</p>
-    </div>
-  </footer>
-
-  <button class="back-to-top" id="backToTop" title="Наверх">↑</button>
-
-  <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('preloader').classList.add('hidden');
-      }, 3600); 
-    });
-
-    const themeBtn = document.getElementById('themeBtn');
-    const body = document.body;
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') { body.classList.add('dark-theme'); themeBtn.textContent = '☀️'; }
-    themeBtn.addEventListener('click', () => {
-      body.classList.toggle('dark-theme');
-      if (body.classList.contains('dark-theme')) { themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); } 
-      else { themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); }
-    });
-
-    const backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) backToTopBtn.classList.add('show');
-      else backToTopBtn.classList.remove('show');
-    });
-    backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-
-    const fadeElements = document.querySelectorAll('.fade-in');
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) { entry.target.classList.add('visible'); fadeObserver.unobserve(entry.target); }
-      });
-    }, { threshold: 0.1 });
-    fadeElements.forEach(el => fadeObserver.observe(el));
-
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      const question = item.querySelector('.faq-question');
-      question.addEventListener('click', () => {
-        faqItems.forEach(otherItem => {
-          if (otherItem !== item && otherItem.classList.contains('active')) { otherItem.classList.remove('active'); }
-        });
-        item.classList.toggle('active');
-      });
-    });
-
-    const bookForm = document.getElementById('bookForm');
-    const successMsg = document.getElementById('successMsg');
-    bookForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      bookForm.querySelector('button').style.display = 'none';
-      successMsg.style.display = 'block';
-      setTimeout(() => {
-        bookForm.reset(); bookForm.querySelector('button').style.display = 'block'; successMsg.style.display = 'none';
-      }, 5000);
-    });
-
-    const lightbox = document.getElementById('lightbox');
-    const lightboxContent = document.getElementById('lightbox-content');
-
-    function openLightbox(text) {
-      lightboxContent.textContent = text;
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-  </script>
-</body>
-</html>
+        <div class="faq-answer"><p
