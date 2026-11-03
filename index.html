@@ -452,17 +452,27 @@
 
   <button class="back-to-top" id="backToTop" title="Наверх">↑</button>
 
-  <!-- ===== МОДАЛКА: ВХОД В АДМИНКУ ===== -->
+    <!-- ===== МОДАЛКА: ВХОД В АДМИНКУ ===== -->
   <div class="modal-overlay" id="loginModal">
     <div class="modal-box">
       <span class="modal-close" onclick="toggleModal('loginModal', false)">&times;</span>
       <h3>Вход в панель управления</h3>
       <input type="text" class="modal-input" id="loginUser" placeholder="Логин">
       <input type="password" class="modal-input" id="loginPass" placeholder="Пароль">
+      
+      <!-- ПЛАШКА С ДЕМО-ДОСТУПОМ -->
+      <div style="background: rgba(233, 196, 106, 0.2); border: 1px dashed #e9c46a; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: 0.9rem;">
+        <b>Демо-доступ:</b><br>
+        Логин: <b>admin</b><br>
+        Пароль: <b>1234</b>
+      </div>
+
       <button class="btn" style="width: 100%;" onclick="checkLogin()">Войти</button>
-      <p style="text-align: center; font-size: 0.85rem; color: #888; margin-top: 15px;">
-        (Демо-доступ: логин <b>admin</b>, пароль <b>1234</b>)
+      
+      <p style="text-align: center; font-size: 0.75rem; color: #888; margin-top: 15px;">
+        * В рабочей версии сайта логин и пароль будут скрыты, а доступ выдан только вам.
       </p>
+      
       <p id="loginError" style="color: red; text-align: center; margin-top: 10px; display: none;">Неверный логин или пароль</p>
     </div>
   </div>
