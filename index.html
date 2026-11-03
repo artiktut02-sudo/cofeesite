@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee Magazino — кофейня на Энгельса, 62</title>
+  <meta name="description" content="Coffee Magazino — уютная кофейня в Санкт-Петербурге. Свежий кофе, выпечка, быстрое обслуживание. Проспект Энгельса, 62." />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #2b2118;
+      background: #fdfaf6;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+    .hero {
+      background: linear-gradient(135deg, #3b2a1e 0%, #6b4a33 100%);
+      color: #fff;
+      padding: 80px 0;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.6rem; margin-bottom: 12px; letter-spacing: 1px; }
+    .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 28px; }
+
+    .btn {
+      display: inline-block;
+      background: #e9c46a;
+      color: #2b2118;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 999px;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .btn:hover { background: #f4d58d; transform: translateY(-2px); }
+
+    section { padding: 60px 0; }
+    section h2 { font-size: 1.8rem; margin-bottom: 24px; text-align: center; }
+
+    .about p { max-width: 640px; margin: 0 auto 12px; text-align: center; color: #4a3f36; }
+
+    .menu { background: #fff; }
+    .menu-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #fdfaf6;
+      border: 1px solid #efe6da;
+      border-radius: 12px;
+      font-size: 1.05rem;
+    }
+    .menu-item span:last-child { font-weight: 600; color: #6b4a33; }
+
+    .contacts { text-align: center; }
+    .contacts .info {
+      display: inline-block;
+      text-align: left;
+      background: #fff;
+      border: 1px solid #efe6da;
+      border-radius: 16px;
+      padding: 28px 36px;
+      margin-top: 8px;
+    }
+    .contacts .info p { margin-bottom: 8px; font-size: 1.05rem; }
+    .contacts .info strong { color: #6b4a33; }
+
+    footer {
+      background: #2b2118;
+      color: #d9cfc4;
+      text-align: center;
+      padding: 32px 0;
+      font-size: 0.95rem;
+    }
+    footer a { color: #e9c46a; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 56px 0; }
+      .hero h1 { font-size: 1.9rem; }
+      .contacts .info { padding: 22px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="container">
+      <h1>Coffee Magazino</h1>
+      <p>Свежий кофе и уютная атмосфера на проспекте Энгельса</p>
+      <a class="btn" href="https://vk.com/coffeemagazino" target="_blank" rel="noopener">Написать нам в ВК</a>
+    </div>
+  </header>
+
+  <section class="about">
+    <div class="container">
+      <h2>О нас</h2>
+      <p>Мы — небольшая кофейня в Санкт-Петербурге, где можно быстро взять кофе с собой или посидеть с ноутбуком за чашкой любимого напитка.</p>
+      <p>Готовим на зерне свежей обжарки, печём выпечку и всегда рады помочь выбрать что-то по вкусу.</p>
+    </div>
+  </section>
+
+  <section class="menu">
+    <div class="container">
+      <h2>Меню</h2>
+      <div class="menu-list">
+        <div class="menu-item"><span>Эспрессо</span><span>120 ₽</span></div>
+        <div class="menu-item"><span>Капучино</span><span>180 ₽</span></div>
+        <div class="menu-item"><span>Латте</span><span>190 ₽</span></div>
+        <div class="menu-item"><span>Флэт уайт</span><span>200 ₽</span></div>
+        <div class="menu-item"><span>Круассан</span><span>150 ₽</span></div>
+        <div class="menu-item"><span>Сырники</span><span>220 ₽</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacts">
+    <div class="container">
+      <h2>Как нас найти</h2>
+      <div class="info">
+        <p><strong>Адрес:</strong> Санкт-Петербург, проспект Энгельса, 62</p>
+        <p><strong>Часы работы:</strong> Пн–Пт 08:00–20:00, Сб–Вс 09:00–21:00</p>
+        <p><strong>Телефон:</strong> <a href="tel:+78129215328">+7 (812) 921-53-28</a></p>
+        <p><strong>Почта:</strong> <a href="mailto:coffeemagazino@yandex.ru">coffeemagazino@yandex.ru</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Coffee Magazino · Санкт-Петербург, проспект Энгельса, 62</p>
+      <p>Мы в <a href="https://vk.com/coffeemagazino" target="_blank" rel="noopener">ВКонтакте</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
