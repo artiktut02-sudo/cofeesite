@@ -7,7 +7,6 @@
   <meta name="description" content="Демонстрационный сайт для локального бизнеса." />
 
   <style>
-    /* ===== Переменные для светлой темы ===== */
     :root {
       --bg-color: #fdfaf6;
       --text-color: #2b2118;
@@ -20,9 +19,9 @@
       --accent: #e9c46a;
       --accent-hover: #f4d58d;
       --accent-text: #2b2118;
+      --star-color: #f1c40f;
     }
 
-    /* ===== Переменные для темной темы ===== */
     body.dark-theme {
       --bg-color: #121212;
       --text-color: #e0e0e0;
@@ -49,105 +48,53 @@
     a { color: inherit; text-decoration: none; }
     .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
 
-    /* ===== Шапка с навигацией ===== */
+    /* ===== Шапка ===== */
     .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--card-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: var(--card-bg); border-bottom: 1px solid var(--card-border);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 20px; z-index: 1000;
     }
-    
-    .navbar-left {
-      display: flex;
-      align-items: center;
-      gap: 15px; /* Отступ между кнопкой темы и названием */
-    }
-
+    .navbar-left { display: flex; align-items: center; gap: 15px; }
     .navbar h2 { font-size: 1.2rem; }
-
-    /* Кнопка темы теперь встроена в шапку слева */
+    
     .theme-toggle {
-      background: var(--bg-color);
-      border: 1px solid var(--card-border);
-      color: var(--text-color);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1rem;
+      background: var(--bg-color); border: 1px solid var(--card-border);
+      color: var(--text-color); width: 36px; height: 36px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem;
     }
 
     .navbar .nav-btn {
-      background: var(--accent);
-      color: var(--accent-text);
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.9rem;
+      background: var(--accent); color: var(--accent-text);
+      padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 0.9rem;
     }
     .navbar .nav-btn:hover { background: var(--accent-hover); }
 
     /* ===== Кнопка "Наверх" ===== */
     .back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--accent);
-      color: var(--accent-text);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 1000;
-      border: none;
+      position: fixed; bottom: 30px; right: 30px;
+      background: var(--accent); color: var(--accent-text);
+      width: 50px; height: 50px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; border: none;
     }
     .back-to-top.show { opacity: 1; visibility: visible; }
     .back-to-top:hover { background: var(--accent-hover); transform: translateY(-3px); }
 
-    /* ===== Анимация появления ===== */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
+    /* ===== Анимация ===== */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* ===== Hero ===== */
-    .hero {
-      background: var(--hero-bg);
-      color: #fff;
-      padding: 140px 0 100px;
-      text-align: center;
-    }
+    .hero { background: var(--hero-bg); color: #fff; padding: 140px 0 100px; text-align: center; }
     .hero h1 { font-size: 3rem; margin-bottom: 15px; letter-spacing: 1px; }
     .hero p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 35px; }
 
     .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: var(--accent-text);
-      font-weight: 600;
-      padding: 16px 40px;
-      border-radius: 999px;
-      font-size: 1.1rem;
+      display: inline-block; background: var(--accent); color: var(--accent-text);
+      font-weight: 600; padding: 16px 40px; border-radius: 999px; font-size: 1.1rem;
       transition: transform 0.15s ease, background 0.15s ease;
     }
     .btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
@@ -161,81 +108,42 @@
     /* ===== Преимущества ===== */
     .features { background: var(--bg-color); }
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-    .feature-item {
-      background: var(--card-bg);
-      padding: 30px;
-      border-radius: 16px;
-      border: 1px solid var(--card-border);
-      text-align: center;
-    }
+    .feature-item { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--card-border); text-align: center; }
     .feature-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
     .feature-item h3 { font-size: 1.2rem; margin-bottom: 10px; }
     .feature-item p { color: var(--text-muted); font-size: 0.95rem; }
 
     /* ===== Меню ===== */
     .menu { background: var(--card-bg); }
-    .menu-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .menu-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 16px 20px;
-      background: var(--bg-color);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      font-size: 1.1rem;
-    }
+    .menu-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 800px; margin: 0 auto; }
+    .menu-item { display: flex; justify-content: space-between; padding: 16px 20px; background: var(--bg-color); border: 1px solid var(--card-border); border-radius: 12px; font-size: 1.1rem; }
     .menu-item span:last-child { font-weight: 600; color: var(--accent); }
 
     /* ===== Галерея ===== */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-    .gallery-item {
-      background: var(--card-bg);
-      border: 2px dashed var(--card-border);
-      border-radius: 16px;
-      aspect-ratio: 1 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .gallery-item { background: var(--card-bg); border: 2px dashed var(--card-border); border-radius: 16px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600; font-size: 1.1rem; }
+
+    /* ===== НОВЫЙ БЛОК: Отзывы ===== */
+    .reviews { background: var(--card-bg); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 30px; }
+    .review-card { background: var(--bg-color); padding: 25px; border-radius: 16px; border: 1px solid var(--card-border); }
+    .review-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+    .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: var(--accent-text); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; }
+    .review-name { font-weight: 600; }
+    .review-date { font-size: 0.85rem; color: var(--text-muted); }
+    .stars { color: var(--star-color); margin-bottom: 10px; font-size: 1.1rem; }
+    .review-text { font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
+    .review-btn-wrapper { text-align: center; margin-top: 30px; }
 
     /* ===== Контакты ===== */
     .contacts { text-align: center; background: var(--bg-color); }
-    .contacts .info {
-      display: inline-block;
-      text-align: left;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 35px 45px;
-      margin-top: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
+    .contacts .info { display: inline-block; text-align: left; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 35px 45px; margin-top: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     .contacts .info p { margin-bottom: 12px; font-size: 1.1rem; }
     .contacts .info strong { color: var(--text-color); }
 
-    footer {
-      background: var(--footer-bg);
-      color: var(--footer-text);
-      text-align: center;
-      padding: 40px 0;
-      font-size: 0.95rem;
-    }
+    footer { background: var(--footer-bg); color: var(--footer-text); text-align: center; padding: 40px 0; font-size: 0.95rem; }
     footer a { color: var(--accent); }
 
-    /* Адаптив для телефонов */
     @media (max-width: 600px) {
       .hero { padding: 120px 0 60px; }
       .hero h1 { font-size: 2.2rem; }
@@ -250,10 +158,8 @@
 </head>
 <body>
 
-  <!-- Шапка -->
   <nav class="navbar">
     <div class="navbar-left">
-      <!-- Кнопка темы теперь аккуратно слева, перед названием -->
       <button class="theme-toggle" id="themeBtn" title="Сменить тему">🌙</button>
       <h2>Ваша кофейня</h2>
     </div>
@@ -280,21 +186,9 @@
     <div class="container">
       <h2>Почему мы</h2>
       <div class="features-grid">
-        <div class="feature-item">
-          <span class="feature-icon">☕</span>
-          <h3>Свежая обжарка</h3>
-          <p>Используем только свежее зерно от локальных обжарщиков.</p>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">⚡</span>
-          <h3>Быстро</h3>
-          <p>Приготовим ваш любимый напиток за 3-4 минуты, даже в час пик.</p>
-        </div>
-        <div class="feature-item">
-          <span class="feature-icon">🥐</span>
-          <h3>Своя выпечка</h3>
-          <p>Каждое утро печем круассаны и готовим десерты без консервантов.</p>
-        </div>
+        <div class="feature-item"><span class="feature-icon">☕</span><h3>Свежая обжарка</h3><p>Используем только свежее зерно от локальных обжарщиков.</p></div>
+        <div class="feature-item"><span class="feature-icon">⚡</span><h3>Быстро</h3><p>Приготовим ваш любимый напиток за 3-4 минуты.</p></div>
+        <div class="feature-item"><span class="feature-icon">🥐</span><h3>Своя выпечка</h3><p>Каждое утро печем круассаны без консервантов.</p></div>
       </div>
     </div>
   </section>
@@ -325,6 +219,41 @@
     </div>
   </section>
 
+  <!-- НОВЫЙ БЛОК: Отзывы -->
+  <section class="reviews fade-in">
+    <div class="container">
+      <h2>Отзывы наших гостей</h2>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="avatar">А</div>
+            <div>
+              <div class="review-name">Анна</div>
+              <div class="review-date">2 дня назад</div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+          <p class="review-text">«Лучший капучино в городе! Очень уютно, приветливые бариста. Теперь захожу каждое утро по пути на работу».</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="avatar">М</div>
+            <div>
+              <div class="review-name">Максим</div>
+              <div class="review-date">1 неделю назад</div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+          <p class="review-text">«Отличное место, чтобы поработать с ноутбуком. Есть розетки, быстрый Wi-Fi и очень вкусные круассаны. Рекомендую!»</p>
+        </div>
+      </div>
+      <div class="review-btn-wrapper">
+        <!-- Ссылка ведет на заглушку, при установке под клиента - вставим его ВК/Карты -->
+        <a href="#" onclick="alert('Здесь будет ссылка на отзывы в Яндексе или ВК'); return false;" class="btn">Оставить отзыв</a>
+      </div>
+    </div>
+  </section>
+
   <section class="contacts fade-in" id="contacts">
     <div class="container">
       <h2>Как нас найти</h2>
@@ -333,6 +262,10 @@
         <p><strong>Часы работы:</strong> Пн–Вс 09:00–21:00</p>
         <p><strong>Телефон:</strong> +7 (999) 000-00-00</p>
         <p><strong>Мы в соцсетях:</strong> ВКонтакте / Telegram</p>
+        <!-- Плашка с картой -->
+        <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">
+          📍 <a href="#" style="text-decoration: underline;">Мы на карте (Яндекс.Карты)</a>
+        </p>
       </div>
     </div>
   </section>
@@ -382,7 +315,7 @@
         }
       });
     }, { threshold: 0.1 });
-    fadeElements.forEach(fadeObserver.observe.bind(fadeObserver));
+    fadeElements.forEach(el => fadeObserver.observe(el));
   </script>
 
 </body>
