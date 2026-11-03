@@ -44,9 +44,57 @@
       color: var(--text-color);
       background: var(--bg-color);
       line-height: 1.6;
+      overflow-x: hidden; /* Защита от горизонтальной прокрутки при анимации */
     }
     a { color: inherit; text-decoration: none; }
     .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+    /* ===== АНИМАЦИЯ ЗАГРУЗКИ (ПРЕЛОАДЕР) ===== */
+    #preloader {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100vh;
+      background: #2b2118; /* Темный фон */
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    /* Летящая кружка */
+    .flying-cup {
+      position: absolute;
+      font-size: 5rem;
+      animation: flyCup 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      filter: drop-shadow(0 0 20px rgba(233, 196, 106, 0.8)); /* Свечение */
+    }
+
+    /* След от кружки (эффект пролитого кофе) */
+    .cup-trail {
+      position: absolute;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #e9c46a, transparent);
+      width: 100px;
+      opacity: 0;
+      animation: fadeTrail 1.5s ease forwards;
+    }
+
+    @keyframes flyCup {
+      0% { transform: translate(-50vw, 50vh) rotate(-45deg) scale(0.5); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translate(50vw, -50vh) rotate(45deg) scale(1.5); opacity: 0; }
+    }
+
+    @keyframes fadeTrail {
+      0% { width: 0; opacity: 0; }
+      50% { width: 80vw; opacity: 1; }
+      100% { width: 100vw; opacity: 0; }
+    }
 
     /* ===== Шапка ===== */
     .navbar {
@@ -64,6 +112,14 @@
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
       cursor: pointer; font-size: 1rem;
     }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .nav-phone {
+      background: var(--bg-color); border: 1px solid var(--card-border);
+      color: var(--text-color); padding: 8px 12px; border-radius: 999px; font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; display: flex; align-items: center; gap: 5px;
+    }
+    .nav-phone:hover { background: var(--card-border); }
 
     .navbar .nav-btn {
       background: var(--accent); color: var(--accent-text);
@@ -95,7 +151,7 @@
     .btn {
       display: inline-block; background: var(--accent); color: var(--accent-text);
       font-weight: 600; padding: 16px 40px; border-radius: 999px; font-size: 1.1rem;
-      transition: transform 0.15s ease, background 0.15s ease;
+      transition: transform 0.15s ease, background 0.15s ease; cursor: pointer; border: none;
     }
     .btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
 
@@ -135,15 +191,27 @@
     .review-text { font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
     .review-btn-wrapper { text-align: center; margin-top: 30px; }
 
-    /* Стиль для мелкого шрифта про демо-отзывы */
-    .demo-note {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: -20px; /* Подтягиваем ближе к заголовку */
-      margin-bottom: 30px;
-      font-style: italic;
-    }
+    .demo-note { text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: -20px; margin-bottom: 30px; font-style: italic; }
+
+    /* ===== Блок: Форма бронирования ===== */
+    .booking { background: var(--bg-color); text-align: center; }
+    .booking-form { max-width: 500px; margin: 0 auto; background: var(--card-bg); padding: 40px; border-radius: 16px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .form-group { margin-bottom: 20px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
+    .form-group input { width: 100%; padding: 14px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); font-size: 1rem; outline: none; }
+    .form-group input:focus { border-color: var(--accent); }
+    .booking-form .btn { width: 100%; margin-top: 10px; }
+    .success-msg { display: none; color: #2e7d32; font-weight: bold; margin-top: 15px; background: #e8f5e9; padding: 10px; border-radius: 8px; }
+
+    /* ===== Блок: FAQ (Аккордеон) ===== */
+    .faq { background: var(--card-bg); }
+    .faq-item { border-bottom: 1px solid var(--card-border); margin-bottom: 10px; }
+    .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1.1rem; }
+    .faq-question:hover { color: var(--accent); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: var(--text-muted); padding: 0 20px; font-size: 0.95rem; }
+    .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 20px; }
+    .faq-icon { font-size: 1.2rem; transition: transform 0.3s ease; }
+    .faq-item.active .faq-icon { transform: rotate(45deg); }
 
     /* ===== Контакты ===== */
     .contacts { text-align: center; background: var(--bg-color); }
@@ -160,27 +228,37 @@
       .navbar { padding: 10px 15px; }
       .navbar h2 { font-size: 1rem; }
       .theme-toggle { width: 32px; height: 32px; font-size: 0.9rem; }
-      .navbar .nav-btn { padding: 6px 12px; font-size: 0.8rem; }
+      .nav-actions .nav-btn { display: none; }
       .contacts .info { padding: 25px 20px; }
       .back-to-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
+      .booking-form { padding: 25px 20px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- АНИМАЦИЯ ЗАГРУЗКИ (ПРЕЛОАДЕР) -->
+  <div id="preloader">
+    <div class="cup-trail"></div>
+    <div class="flying-cup">☕</div>
+  </div>
 
   <nav class="navbar">
     <div class="navbar-left">
       <button class="theme-toggle" id="themeBtn" title="Сменить тему">🌙</button>
       <h2>Ваша кофейня</h2>
     </div>
-    <a href="#contacts" class="nav-btn">Связаться с нами</a>
+    <div class="nav-actions">
+      <a href="tel:+79990000000" class="nav-phone">📞 Позвонить</a>
+      <a href="#booking" class="nav-btn">Забронировать</a>
+    </div>
   </nav>
 
   <header class="hero">
     <div class="container">
       <h1>Ваша кофейня</h1>
       <p>Свежий кофе и уютная атмосфера в центре города</p>
-      <a class="btn" href="#menu">Смотреть меню</a>
+      <a class="btn" href="#booking">Забронировать столик</a>
     </div>
   </header>
 
@@ -232,8 +310,7 @@
   <section class="reviews fade-in">
     <div class="container">
       <h2>Отзывы наших гостей</h2>
-      <!-- Тот самый мелкий шрифт -->
-      <p class="demo-note">* Фейк-отзывы для демо. В вашей версии здесь будут ваши реальные отзывы с Яндекс.Карт или ВК.</p>
+      <p class="demo-note">* Фейк-отзывы для демо. В вашей версии здесь будут ваши реальные отзывы.</p>
       
       <div class="reviews-grid">
         <div class="review-card">
@@ -259,9 +336,61 @@
           <p class="review-text">«Отличное место, чтобы поработать с ноутбуком. Есть розетки, быстрый Wi-Fi и очень вкусные круассаны. Рекомендую!»</p>
         </div>
       </div>
-      <div class="review-btn-wrapper">
-        <a href="#" onclick="alert('Здесь будет ссылка на отзывы в Яндексе или ВК'); return false;" class="btn">Оставить отзыв</a>
+    </div>
+  </section>
+
+  <section class="booking fade-in" id="booking">
+    <div class="container">
+      <h2>Забронировать столик</h2>
+      <form class="booking-form" id="bookForm">
+        <div class="form-group">
+          <label>Ваше имя</label>
+          <input type="text" placeholder="Как к вам обращаться?" required>
+        </div>
+        <div class="form-group">
+          <label>Номер телефона</label>
+          <input type="tel" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <button type="submit" class="btn">Отправить заявку</button>
+        <div class="success-msg" id="successMsg">Спасибо! Мы перезвоним вам в течение 5 минут для подтверждения.</div>
+      </form>
+    </div>
+  </section>
+
+  <section class="faq fade-in">
+    <div class="container">
+      <h2>Частые вопросы</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Есть ли у вас Wi-Fi и розетки?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Да, у нас быстрый бесплатный Wi-Fi и множество розеток прямо возле столиков. Приходите поработать!</p>
+        </div>
       </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Можно ли с собаками?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Мы очень любим животных! Вы можете прийти с собакой небольшого размера. Для них всегда найдется миска с водой.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Есть ли безлактозное молоко?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Конечно! Мы готовим кофе на обычном, безлактозном, миндальном, кокосовом и овсяном молоке.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -289,6 +418,15 @@
   <button class="back-to-top" id="backToTop" title="Наверх">↑</button>
 
   <script>
+    // ==== СКРИПТ ПРЕЛОАДЕРА (АНИМАЦИЯ КРУЖКИ) ====
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        preloader.classList.add('hidden');
+      }, 1600); // Ждем 1.6 секунды и убираем экран
+    });
+
+    // ==== ОСТАЛЬНЫЕ СКРИПТЫ ====
     const themeBtn = document.getElementById('themeBtn');
     const body = document.body;
     const currentTheme = localStorage.getItem('theme');
@@ -326,6 +464,32 @@
       });
     }, { threshold: 0.1 });
     fadeElements.forEach(el => fadeObserver.observe(el));
+
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            otherItem.classList.remove('active');
+          }
+        });
+        item.classList.toggle('active');
+      });
+    });
+
+    const bookForm = document.getElementById('bookForm');
+    const successMsg = document.getElementById('successMsg');
+    bookForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      bookForm.querySelector('button').style.display = 'none';
+      successMsg.style.display = 'block';
+      setTimeout(() => {
+        bookForm.reset();
+        bookForm.querySelector('button').style.display = 'block';
+        successMsg.style.display = 'none';
+      }, 5000);
+    });
   </script>
 
 </body>
