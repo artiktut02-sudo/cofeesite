@@ -123,7 +123,7 @@
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
     .gallery-item { background: var(--card-bg); border: 2px dashed var(--card-border); border-radius: 16px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: 600; font-size: 1.1rem; }
 
-    /* ===== НОВЫЙ БЛОК: Отзывы ===== */
+    /* ===== Отзывы ===== */
     .reviews { background: var(--card-bg); }
     .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 30px; }
     .review-card { background: var(--bg-color); padding: 25px; border-radius: 16px; border: 1px solid var(--card-border); }
@@ -134,6 +134,16 @@
     .stars { color: var(--star-color); margin-bottom: 10px; font-size: 1.1rem; }
     .review-text { font-size: 0.95rem; color: var(--text-muted); font-style: italic; }
     .review-btn-wrapper { text-align: center; margin-top: 30px; }
+
+    /* Стиль для мелкого шрифта про демо-отзывы */
+    .demo-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: -20px; /* Подтягиваем ближе к заголовку */
+      margin-bottom: 30px;
+      font-style: italic;
+    }
 
     /* ===== Контакты ===== */
     .contacts { text-align: center; background: var(--bg-color); }
@@ -219,10 +229,12 @@
     </div>
   </section>
 
-  <!-- НОВЫЙ БЛОК: Отзывы -->
   <section class="reviews fade-in">
     <div class="container">
       <h2>Отзывы наших гостей</h2>
+      <!-- Тот самый мелкий шрифт -->
+      <p class="demo-note">* Фейк-отзывы для демо. В вашей версии здесь будут ваши реальные отзывы с Яндекс.Карт или ВК.</p>
+      
       <div class="reviews-grid">
         <div class="review-card">
           <div class="review-header">
@@ -248,7 +260,6 @@
         </div>
       </div>
       <div class="review-btn-wrapper">
-        <!-- Ссылка ведет на заглушку, при установке под клиента - вставим его ВК/Карты -->
         <a href="#" onclick="alert('Здесь будет ссылка на отзывы в Яндексе или ВК'); return false;" class="btn">Оставить отзыв</a>
       </div>
     </div>
@@ -262,7 +273,6 @@
         <p><strong>Часы работы:</strong> Пн–Вс 09:00–21:00</p>
         <p><strong>Телефон:</strong> +7 (999) 000-00-00</p>
         <p><strong>Мы в соцсетях:</strong> ВКонтакте / Telegram</p>
-        <!-- Плашка с картой -->
         <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">
           📍 <a href="#" style="text-decoration: underline;">Мы на карте (Яндекс.Карты)</a>
         </p>
