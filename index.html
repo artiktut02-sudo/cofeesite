@@ -7,18 +7,69 @@
   <meta name="description" content="Демонстрационный сайт для локального бизнеса." />
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ===== Переменные для светлой темы (по умолчанию) ===== */
+    :root {
+      --bg-color: #fdfaf6;
+      --text-color: #2b2118;
+      --text-muted: #4a3f36;
+      --card-bg: #fff;
+      --card-border: #efe6da;
+      --hero-bg: linear-gradient(135deg, #3b2a1e 0%, #6b4a33 100%);
+      --footer-bg: #2b2118;
+      --footer-text: #d9cfc4;
+      --accent: #e9c46a;
+      --accent-hover: #f4d58d;
+      --accent-text: #2b2118;
+    }
+
+    /* ===== Переменные для темной темы ===== */
+    body.dark-theme {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --text-muted: #a0a0a0;
+      --card-bg: #1e1e1e;
+      --card-border: #333;
+      --hero-bg: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+      --footer-bg: #0a0a0a;
+      --footer-text: #888;
+      --accent: #d4af37;
+      --accent-hover: #f1c40f;
+      --accent-text: #121212;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s, color 0.3s; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      color: #2b2118;
-      background: #fdfaf6;
+      color: var(--text-color);
+      background: var(--bg-color);
       line-height: 1.6;
     }
     a { color: inherit; text-decoration: none; }
     .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
 
+    /* ===== Кнопка переключения темы ===== */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-color);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+    .theme-toggle:hover { transform: scale(1.1); }
+
     .hero {
-      background: linear-gradient(135deg, #3b2a1e 0%, #6b4a33 100%);
+      background: var(--hero-bg);
       color: #fff;
       padding: 80px 0;
       text-align: center;
@@ -28,21 +79,21 @@
 
     .btn {
       display: inline-block;
-      background: #e9c46a;
-      color: #2b2118;
+      background: var(--accent);
+      color: var(--accent-text);
       font-weight: 600;
       padding: 14px 32px;
       border-radius: 999px;
       transition: transform 0.15s ease, background 0.15s ease;
     }
-    .btn:hover { background: #f4d58d; transform: translateY(-2px); }
+    .btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
 
     section { padding: 60px 0; }
     section h2 { font-size: 1.8rem; margin-bottom: 24px; text-align: center; }
 
-    .about p { max-width: 640px; margin: 0 auto 12px; text-align: center; color: #4a3f36; }
+    .about p { max-width: 640px; margin: 0 auto 12px; text-align: center; color: var(--text-muted); }
 
-    .menu { background: #fff; }
+    .menu { background: var(--card-bg); }
     .menu-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -54,49 +105,52 @@
       display: flex;
       justify-content: space-between;
       padding: 14px 18px;
-      background: #fdfaf6;
-      border: 1px solid #efe6da;
+      background: var(--bg-color);
+      border: 1px solid var(--card-border);
       border-radius: 12px;
       font-size: 1.05rem;
     }
-    .menu-item span:last-child { font-weight: 600; color: #6b4a33; }
+    .menu-item span:last-child { font-weight: 600; color: var(--accent); }
 
     .contacts { text-align: center; }
     .contacts .info {
       display: inline-block;
       text-align: left;
-      background: #fff;
-      border: 1px solid #efe6da;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 28px 36px;
       margin-top: 8px;
     }
     .contacts .info p { margin-bottom: 8px; font-size: 1.05rem; }
-    .contacts .info strong { color: #6b4a33; }
+    .contacts .info strong { color: var(--text-color); }
 
     footer {
-      background: #2b2118;
-      color: #d9cfc4;
+      background: var(--footer-bg);
+      color: var(--footer-text);
       text-align: center;
       padding: 32px 0;
       font-size: 0.95rem;
     }
-    footer a { color: #e9c46a; }
+    footer a { color: var(--accent); }
 
     @media (max-width: 600px) {
       .hero { padding: 56px 0; }
       .hero h1 { font-size: 1.9rem; }
       .contacts .info { padding: 22px 20px; }
+      .theme-toggle { top: 15px; right: 15px; width: 40px; height: 40px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Кнопка смены темы -->
+  <button class="theme-toggle" id="themeBtn" title="Сменить тему">🌙</button>
+
   <header class="hero">
     <div class="container">
       <h1>Ваша кофейня</h1>
       <p>Свежий кофе и уютная атмосфера в центре города</p>
-      <!-- Кнопка ведет на заглушку, чтобы не палить реальные контакты -->
       <a class="btn" href="#" onclick="alert('Здесь будет ссылка на ваш ВК или Телеграм'); return false;">Написать нам</a>
     </div>
   </header>
@@ -139,6 +193,32 @@
       <p>Шаблон сайта для кофейни · Демо-версия</p>
     </div>
   </footer>
+
+  <!-- Скрипт переключения темы -->
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const body = document.body;
+
+    // Проверяем, сохранена ли тема в браузере
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+      body.classList.add('dark-theme');
+      themeBtn.textContent = '☀️'; // Меняем иконку на солнце
+    }
+
+    // Обработчик клика
+    themeBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      
+      if (body.classList.contains('dark-theme')) {
+        themeBtn.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeBtn.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
 
 </body>
 </html>
