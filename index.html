@@ -7,7 +7,7 @@
   <meta name="description" content="Демонстрационный сайт для локального бизнеса." />
 
   <style>
-    /* ===== Переменные для светлой темы (по умолчанию) ===== */
+    /* ===== Переменные для светлой темы ===== */
     :root {
       --bg-color: #fdfaf6;
       --text-color: #2b2118;
@@ -38,6 +38,10 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s, color 0.3s; }
+    
+    /* Плавная прокрутка для всей страницы */
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       color: var(--text-color);
@@ -67,6 +71,45 @@
       z-index: 1000;
     }
     .theme-toggle:hover { transform: scale(1.1); }
+
+    /* ===== Кнопка "Наверх" ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--accent);
+      color: var(--accent-text);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      border: none;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover { background: var(--accent-hover); transform: translateY(-3px); }
+
+    /* ===== Анимация появления ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     .hero {
       background: var(--hero-bg);
@@ -139,23 +182,24 @@
       .hero h1 { font-size: 1.9rem; }
       .contacts .info { padding: 22px 20px; }
       .theme-toggle { top: 15px; right: 15px; width: 40px; height: 40px; }
+      .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Кнопка смены темы -->
   <button class="theme-toggle" id="themeBtn" title="Сменить тему">🌙</button>
 
   <header class="hero">
     <div class="container">
       <h1>Ваша кофейня</h1>
       <p>Свежий кофе и уютная атмосфера в центре города</p>
-      <a class="btn" href="#" onclick="alert('Здесь будет ссылка на ваш ВК или Телеграм'); return false;">Написать нам</a>
+      <!-- Кнопка теперь плавно скроллит к контактам -->
+      <a class="btn" href="#contacts">Написать нам</a>
     </div>
   </header>
 
-  <section class="about">
+  <section class="about fade-in">
     <div class="container">
       <h2>О нас</h2>
       <p>Мы — небольшая кофейня, где можно быстро взять кофе с собой или посидеть с ноутбуком за чашкой любимого напитка.</p>
@@ -163,7 +207,7 @@
     </div>
   </section>
 
-  <section class="menu">
+  <section class="menu fade-in">
     <div class="container">
       <h2>Меню</h2>
       <div class="menu-list">
@@ -177,7 +221,8 @@
     </div>
   </section>
 
-  <section class="contacts">
+  <!-- Добавили id="contacts" для плавного скролла -->
+  <section class="contacts fade-in" id="contacts">
     <div class="container">
       <h2>Как нас найти</h2>
       <div class="info">
@@ -194,22 +239,22 @@
     </div>
   </footer>
 
-  <!-- Скрипт переключения темы -->
+  <!-- Кнопка "Наверх" -->
+  <button class="back-to-top" id="backToTop" title="Наверх">↑</button>
+
   <script>
+    // ==== Логика переключения темы ====
     const themeBtn = document.getElementById('themeBtn');
     const body = document.body;
 
-    // Проверяем, сохранена ли тема в браузере
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme === 'dark') {
       body.classList.add('dark-theme');
-      themeBtn.textContent = '☀️'; // Меняем иконку на солнце
+      themeBtn.textContent = '☀️';
     }
 
-    // Обработчик клика
     themeBtn.addEventListener('click', () => {
       body.classList.toggle('dark-theme');
-      
       if (body.classList.contains('dark-theme')) {
         themeBtn.textContent = '☀️';
         localStorage.setItem('theme', 'dark');
@@ -218,6 +263,35 @@
         localStorage.setItem('theme', 'light');
       }
     });
+
+    // ==== Логика кнопки "Наверх" ====
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ==== Логика анимации при скролле (Fade-in) ====
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeElements.forEach(el => fadeObserver.observe(el));
   </script>
 
 </body>
