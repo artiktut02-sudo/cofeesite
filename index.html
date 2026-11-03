@@ -38,8 +38,6 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s, color 0.3s; }
-    
-    /* Плавная прокрутка для всей страницы */
     html { scroll-behavior: smooth; }
 
     body {
@@ -51,26 +49,49 @@
     a { color: inherit; text-decoration: none; }
     .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
 
+    /* ===== Шапка с навигацией ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      z-index: 1000;
+    }
+    .navbar h2 { font-size: 1.2rem; }
+    .navbar .nav-btn {
+      background: var(--accent);
+      color: var(--accent-text);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .navbar .nav-btn:hover { background: var(--accent-hover); }
+
     /* ===== Кнопка переключения темы ===== */
     .theme-toggle {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--card-bg);
+      top: 15px;
+      right: 130px; /* Сдвинули влево от кнопки "Связаться" */
+      background: var(--bg-color);
       border: 1px solid var(--card-border);
       color: var(--text-color);
-      width: 44px;
-      height: 44px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 1000;
+      font-size: 1rem;
+      z-index: 1001;
     }
-    .theme-toggle:hover { transform: scale(1.1); }
 
     /* ===== Кнопка "Наверх" ===== */
     .back-to-top {
@@ -94,10 +115,7 @@
       z-index: 1000;
       border: none;
     }
-    .back-to-top.show {
-      opacity: 1;
-      visibility: visible;
-    }
+    .back-to-top.show { opacity: 1; visibility: visible; }
     .back-to-top:hover { background: var(--accent-hover); transform: translateY(-3px); }
 
     /* ===== Анимация появления ===== */
@@ -106,87 +124,129 @@
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+    /* ===== Hero ===== */
     .hero {
       background: var(--hero-bg);
       color: #fff;
-      padding: 80px 0;
+      padding: 140px 0 100px; /* Увеличили, чтобы не перекрывалось шапкой */
       text-align: center;
     }
-    .hero h1 { font-size: 2.6rem; margin-bottom: 12px; letter-spacing: 1px; }
-    .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 28px; }
+    .hero h1 { font-size: 3rem; margin-bottom: 15px; letter-spacing: 1px; }
+    .hero p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 35px; }
 
     .btn {
       display: inline-block;
       background: var(--accent);
       color: var(--accent-text);
       font-weight: 600;
-      padding: 14px 32px;
+      padding: 16px 40px;
       border-radius: 999px;
+      font-size: 1.1rem;
       transition: transform 0.15s ease, background 0.15s ease;
     }
     .btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
 
-    section { padding: 60px 0; }
-    section h2 { font-size: 1.8rem; margin-bottom: 24px; text-align: center; }
+    section { padding: 80px 0; } /* Увеличили отступы между блоками */
+    section h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; }
 
-    .about p { max-width: 640px; margin: 0 auto 12px; text-align: center; color: var(--text-muted); }
+    /* ===== О нас ===== */
+    .about p { max-width: 700px; margin: 0 auto 15px; text-align: center; color: var(--text-muted); font-size: 1.1rem; }
 
+    /* ===== Преимущества ===== */
+    .features { background: var(--bg-color); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .feature-item {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      text-align: center;
+    }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+    .feature-item h3 { font-size: 1.2rem; margin-bottom: 10px; }
+    .feature-item p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* ===== Меню ===== */
     .menu { background: var(--card-bg); }
     .menu-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      max-width: 720px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 800px;
       margin: 0 auto;
     }
     .menu-item {
       display: flex;
       justify-content: space-between;
-      padding: 14px 18px;
+      padding: 16px 20px;
       background: var(--bg-color);
       border: 1px solid var(--card-border);
       border-radius: 12px;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
     }
     .menu-item span:last-child { font-weight: 600; color: var(--accent); }
 
-    .contacts { text-align: center; }
+    /* ===== Галерея ===== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      background: var(--card-bg);
+      border: 2px dashed var(--card-border);
+      border-radius: 16px;
+      aspect-ratio: 1 / 1; /* Делает рамки квадратными */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* ===== Контакты ===== */
+    .contacts { text-align: center; background: var(--bg-color); }
     .contacts .info {
       display: inline-block;
       text-align: left;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      padding: 28px 36px;
-      margin-top: 8px;
+      padding: 35px 45px;
+      margin-top: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
-    .contacts .info p { margin-bottom: 8px; font-size: 1.05rem; }
+    .contacts .info p { margin-bottom: 12px; font-size: 1.1rem; }
     .contacts .info strong { color: var(--text-color); }
 
     footer {
       background: var(--footer-bg);
       color: var(--footer-text);
       text-align: center;
-      padding: 32px 0;
+      padding: 40px 0;
       font-size: 0.95rem;
     }
     footer a { color: var(--accent); }
 
     @media (max-width: 600px) {
-      .hero { padding: 56px 0; }
-      .hero h1 { font-size: 1.9rem; }
-      .contacts .info { padding: 22px 20px; }
-      .theme-toggle { top: 15px; right: 15px; width: 40px; height: 40px; }
-      .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 1.2rem; }
+      .hero { padding: 120px 0 60px; }
+      .hero h1 { font-size: 2.2rem; }
+      .theme-toggle { right: 120px; }
+      .contacts .info { padding: 25px 20px; }
+      .back-to-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Шапка с кнопкой "Связаться" -->
+  <nav class="navbar">
+    <h2>Ваша кофейня</h2>
+    <a href="#contacts" class="nav-btn">Связаться с нами</a>
+  </nav>
 
   <button class="theme-toggle" id="themeBtn" title="Сменить тему">🌙</button>
 
@@ -194,8 +254,7 @@
     <div class="container">
       <h1>Ваша кофейня</h1>
       <p>Свежий кофе и уютная атмосфера в центре города</p>
-      <!-- Кнопка теперь плавно скроллит к контактам -->
-      <a class="btn" href="#contacts">Написать нам</a>
+      <a class="btn" href="#menu">Смотреть меню</a>
     </div>
   </header>
 
@@ -207,7 +266,32 @@
     </div>
   </section>
 
-  <section class="menu fade-in">
+  <!-- Новый блок: Преимущества -->
+  <section class="features fade-in">
+    <div class="container">
+      <h2>Почему мы</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <span class="feature-icon">☕</span>
+          <h3>Свежая обжарка</h3>
+          <p>Используем только свежее зерно от локальных обжарщиков.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">⚡</span>
+          <h3>Быстро</h3>
+          <p>Приготовим ваш любимый напиток за 3-4 минуты, даже в час пик.</p>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🥐</span>
+          <h3>Своя выпечка</h3>
+          <p>Каждое утро печем круассаны и готовим десерты без консервантов.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Меню -->
+  <section class="menu fade-in" id="menu">
     <div class="container">
       <h2>Меню</h2>
       <div class="menu-list">
@@ -221,7 +305,20 @@
     </div>
   </section>
 
-  <!-- Добавили id="contacts" для плавного скролла -->
+  <!-- НОВЫЙ БЛОК: Галерея -->
+  <section class="gallery fade-in">
+    <div class="container">
+      <h2>Галерея</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item">Фото 1</div>
+        <div class="gallery-item">Фото 2</div>
+        <div class="gallery-item">Фото 3</div>
+        <div class="gallery-item">Фото 4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты -->
   <section class="contacts fade-in" id="contacts">
     <div class="container">
       <h2>Как нас найти</h2>
@@ -229,6 +326,7 @@
         <p><strong>Адрес:</strong> г. Ваш город, ул. Ваша улица, 1</p>
         <p><strong>Часы работы:</strong> Пн–Вс 09:00–21:00</p>
         <p><strong>Телефон:</strong> +7 (999) 000-00-00</p>
+        <p><strong>Мы в соцсетях:</strong> ВКонтакте / Telegram</p>
       </div>
     </div>
   </section>
@@ -239,20 +337,17 @@
     </div>
   </footer>
 
-  <!-- Кнопка "Наверх" -->
   <button class="back-to-top" id="backToTop" title="Наверх">↑</button>
 
   <script>
-    // ==== Логика переключения темы ====
+    // Тема
     const themeBtn = document.getElementById('themeBtn');
     const body = document.body;
-
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme === 'dark') {
       body.classList.add('dark-theme');
       themeBtn.textContent = '☀️';
     }
-
     themeBtn.addEventListener('click', () => {
       body.classList.toggle('dark-theme');
       if (body.classList.contains('dark-theme')) {
@@ -264,24 +359,18 @@
       }
     });
 
-    // ==== Логика кнопки "Наверх" ====
+    // Кнопка наверх
     const backToTopBtn = document.getElementById('backToTop');
-
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopBtn.classList.add('show');
-      } else {
-        backToTopBtn.classList.remove('show');
-      }
+      if (window.scrollY > 300) backToTopBtn.classList.add('show');
+      else backToTopBtn.classList.remove('show');
     });
-
     backToTopBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ==== Логика анимации при скролле (Fade-in) ====
+    // Анимация
     const fadeElements = document.querySelectorAll('.fade-in');
-
     const fadeObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -290,7 +379,6 @@
         }
       });
     }, { threshold: 0.1 });
-
     fadeElements.forEach(el => fadeObserver.observe(el));
   </script>
 
