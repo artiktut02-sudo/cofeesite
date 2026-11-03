@@ -400,4 +400,258 @@
         </div>
         <div class="form-group">
           <label>Номер телефона</label>
-          <
+          <input type="tel" id="clientPhone" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <button type="submit" class="btn">Отправить заявку</button>
+        <div class="success-msg" id="successMsg">Спасибо! Мы перезвоним вам в течение 5 минут.</div>
+      </form>
+    </div>
+  </section>
+
+  <section class="faq fade-in">
+    <div class="container">
+      <h2>Частые вопросы</h2>
+      <div class="faq-item">
+        <div class="faq-question"><span>Есть ли у вас Wi-Fi и розетки?</span><span class="faq-icon">+</span></div>
+        <div class="faq-answer"><p>Да, у нас быстрый бесплатный Wi-Fi и множество розеток прямо возле столиков. Приходите поработать!</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>Можно ли с собаками?</span><span class="faq-icon">+</span></div>
+        <div class="faq-answer"><p>Мы очень любим животных! Вы можете прийти с собакой небольшого размера. Для них всегда найдется миска с водой.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>Есть ли безлактозное молоко?</span><span class="faq-icon">+</span></div>
+        <div class="faq-answer"><p>Конечно! Мы готовим кофе на обычном, безлактозном, миндальном, кокосовом и овсяном молоке.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacts fade-in" id="contacts">
+    <div class="container">
+      <h2>Как нас найти</h2>
+      <div class="info">
+        <p><strong>Адрес:</strong> г. Ваш город, ул. Ваша улица, 1</p>
+        <p><strong>Часы работы:</strong> Пн–Вс 09:00–21:00</p>
+        <p><strong>Телефон:</strong> +7 (999) 000-00-00</p>
+        <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">📍 <a href="#" style="text-decoration: underline;">Мы на карте (Яндекс.Карты)</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-socials">
+        <a href="#" onclick="alert('Здесь будет ваша ссылка'); return false;">ВКонтакте</a>
+        <a href="#" onclick="alert('Здесь будет ваша ссылка'); return false;">Telegram</a>
+      </div>
+      <p class="footer-love">Ваша кофейня — сделано с любовью ❤️</p>
+      <p class="footer-copy">© 2026. Все права защищены.</p>
+      
+      <!-- Секретная кнопка входа в админку -->
+      <span class="admin-trigger" id="adminTrigger">Вход для администратора</span>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" title="Наверх">↑</button>
+
+  <!-- ===== МОДАЛКА: ВХОД В АДМИНКУ ===== -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-box">
+      <span class="modal-close" onclick="toggleModal('loginModal', false)">&times;</span>
+      <h3>Вход в панель управления</h3>
+      <input type="text" class="modal-input" id="loginUser" placeholder="Логин (admin)">
+      <input type="password" class="modal-input" id="loginPass" placeholder="Пароль (1234)">
+      <button class="btn" style="width: 100%;" onclick="checkLogin()">Войти</button>
+      <p id="loginError" style="color: red; text-align: center; margin-top: 10px; display: none;">Неверный логин или пароль</p>
+    </div>
+  </div>
+
+  <!-- ===== МОДАЛКА: САМА АДМИНКА ===== -->
+  <div class="modal-overlay" id="adminPanel">
+    <div class="modal-box" style="max-width: 600px;">
+      <span class="modal-close" onclick="toggleModal('adminPanel', false)">&times;</span>
+      <h3>Заявки на бронирование</h3>
+      
+      <table class="admin-table" id="requestsTable">
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+        <tbody id="requestsList">
+          <!-- Сюда падают заявки -->
+        </tbody>
+      </table>
+      <p class="empty-msg" id="emptyMsg">Пока нет ни одной заявки.</p>
+
+      <div class="admin-actions">
+        <button class="admin-btn btn-danger" onclick="clearRequests()">Очистить всё</button>
+        <button class="admin-btn btn-logout" onclick="logoutAdmin()">Выйти</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==== АНИМАЦИЯ ЗАГРУЗКИ ====
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('preloader').classList.add('hidden');
+      }, 3500); // 3.5 секунды полета кружки
+    });
+
+    // ==== ТЕМА ====
+    const themeBtn = document.getElementById('themeBtn');
+    const body = document.body;
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') { body.classList.add('dark-theme'); themeBtn.textContent = '☀️'; }
+    themeBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      if (body.classList.contains('dark-theme')) { themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); } 
+      else { themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); }
+    });
+
+    // ==== КНОПКА НАВЕРХ ====
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) backToTopBtn.classList.add('show');
+      else backToTopBtn.classList.remove('show');
+    });
+    backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    // ==== АНИМАЦИЯ ПОЯВЛЕНИЯ ====
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); fadeObserver.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1 });
+    fadeElements.forEach(el => fadeObserver.observe(el));
+
+    // ==== FAQ АККОРДЕОН ====
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) { otherItem.classList.remove('active'); }
+        });
+        item.classList.toggle('active');
+      });
+    });
+
+    // ==== ЛАЙТБОКС ====
+    const lightbox = document.getElementById('lightbox');
+    const lightboxContent = document.getElementById('lightbox-content');
+    function openLightbox(text) {
+      lightboxContent.textContent = text;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // ==========================================
+    // ==== ЛОГИКА БРОНИРОВАНИЯ И АДМИНКИ =======
+    // ==========================================
+    
+    // Функция открытия/закрытия модальных окон
+    function toggleModal(modalId, show) {
+      const modal = document.getElementById(modalId);
+      if (show) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Открытие модалки логина
+    document.getElementById('adminTrigger').addEventListener('click', () => {
+      toggleModal('loginModal', true);
+    });
+
+    // Проверка логина/пароля
+    function checkLogin() {
+      const user = document.getElementById('loginUser').value;
+      const pass = document.getElementById('loginPass').value;
+      
+      if (user === 'admin' && pass === '1234') {
+        document.getElementById('loginError').style.display = 'none';
+        toggleModal('loginModal', false);
+        toggleModal('adminPanel', true);
+        renderAdminTable(); // Отрисовываем заявки
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+
+    // Выход из админки
+    function logoutAdmin() {
+      toggleModal('adminPanel', false);
+      document.getElementById('loginUser').value = '';
+      document.getElementById('loginPass').value = '';
+    }
+
+    // --- БАЗА ДАННЫХ ЗАЯВОК (в памяти браузера) ---
+    let requests = JSON.parse(localStorage.getItem('coffeeRequests')) || [];
+
+    // Отправка формы на сайте
+    const bookForm = document.getElementById('bookForm');
+    const successMsg = document.getElementById('successMsg');
+    
+    bookForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('clientName').value;
+      const phone = document.getElementById('clientPhone').value;
+      const date = new Date().toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+
+      // Сохраняем в базу
+      requests.push({ name, phone, date });
+      localStorage.setItem('coffeeRequests', JSON.stringify(requests));
+
+      // Показываем сообщение об успехе
+      bookForm.querySelector('button').style.display = 'none';
+      successMsg.style.display = 'block';
+      
+      setTimeout(() => {
+        bookForm.reset(); 
+        bookForm.querySelector('button').style.display = 'block'; 
+        successMsg.style.display = 'none';
+      }, 4000);
+    });
+
+    // Отрисовка таблицы в админке
+    function renderAdminTable() {
+      const list = document.getElementById('requestsList');
+      const empty = document.getElementById('emptyMsg');
+      list.innerHTML = '';
+
+      if (requests.length === 0) {
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+        requests.forEach(req => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${req.name}</td><td>${req.phone}</td><td>${req.date}</td>`;
+          list.appendChild(tr);
+        });
+      }
+    }
+
+    // Очистка всех заявок
+    function clearRequests() {
+      if (confirm('Вы уверены, что хотите удалить все заявки?')) {
+        requests = [];
+        localStorage.removeItem('coffeeRequests');
+        renderAdminTable();
+      }
+    }
+  </script>
+</body>
+</html>
