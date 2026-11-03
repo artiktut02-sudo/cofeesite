@@ -60,25 +60,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 12px 20px;
       z-index: 1000;
     }
-    .navbar h2 { font-size: 1.2rem; }
-    .navbar .nav-btn {
-      background: var(--accent);
-      color: var(--accent-text);
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.9rem;
+    
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 15px; /* Отступ между кнопкой темы и названием */
     }
-    .navbar .nav-btn:hover { background: var(--accent-hover); }
 
-    /* ===== Кнопка переключения темы ===== */
+    .navbar h2 { font-size: 1.2rem; }
+
+    /* Кнопка темы теперь встроена в шапку слева */
     .theme-toggle {
-      position: fixed;
-      top: 15px;
-      right: 130px; /* Сдвинули влево от кнопки "Связаться" */
       background: var(--bg-color);
       border: 1px solid var(--card-border);
       color: var(--text-color);
@@ -90,8 +85,17 @@
       justify-content: center;
       cursor: pointer;
       font-size: 1rem;
-      z-index: 1001;
     }
+
+    .navbar .nav-btn {
+      background: var(--accent);
+      color: var(--accent-text);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .navbar .nav-btn:hover { background: var(--accent-hover); }
 
     /* ===== Кнопка "Наверх" ===== */
     .back-to-top {
@@ -130,7 +134,7 @@
     .hero {
       background: var(--hero-bg);
       color: #fff;
-      padding: 140px 0 100px; /* Увеличили, чтобы не перекрывалось шапкой */
+      padding: 140px 0 100px;
       text-align: center;
     }
     .hero h1 { font-size: 3rem; margin-bottom: 15px; letter-spacing: 1px; }
@@ -148,7 +152,7 @@
     }
     .btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
 
-    section { padding: 80px 0; } /* Увеличили отступы между блоками */
+    section { padding: 80px 0; }
     section h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; }
 
     /* ===== О нас ===== */
@@ -198,7 +202,7 @@
       background: var(--card-bg);
       border: 2px dashed var(--card-border);
       border-radius: 16px;
-      aspect-ratio: 1 / 1; /* Делает рамки квадратными */
+      aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -231,10 +235,14 @@
     }
     footer a { color: var(--accent); }
 
+    /* Адаптив для телефонов */
     @media (max-width: 600px) {
       .hero { padding: 120px 0 60px; }
       .hero h1 { font-size: 2.2rem; }
-      .theme-toggle { right: 120px; }
+      .navbar { padding: 10px 15px; }
+      .navbar h2 { font-size: 1rem; }
+      .theme-toggle { width: 32px; height: 32px; font-size: 0.9rem; }
+      .navbar .nav-btn { padding: 6px 12px; font-size: 0.8rem; }
       .contacts .info { padding: 25px 20px; }
       .back-to-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
     }
@@ -242,13 +250,15 @@
 </head>
 <body>
 
-  <!-- Шапка с кнопкой "Связаться" -->
+  <!-- Шапка -->
   <nav class="navbar">
-    <h2>Ваша кофейня</h2>
+    <div class="navbar-left">
+      <!-- Кнопка темы теперь аккуратно слева, перед названием -->
+      <button class="theme-toggle" id="themeBtn" title="Сменить тему">🌙</button>
+      <h2>Ваша кофейня</h2>
+    </div>
     <a href="#contacts" class="nav-btn">Связаться с нами</a>
   </nav>
-
-  <button class="theme-toggle" id="themeBtn" title="Сменить тему">🌙</button>
 
   <header class="hero">
     <div class="container">
@@ -266,7 +276,6 @@
     </div>
   </section>
 
-  <!-- Новый блок: Преимущества -->
   <section class="features fade-in">
     <div class="container">
       <h2>Почему мы</h2>
@@ -290,7 +299,6 @@
     </div>
   </section>
 
-  <!-- Меню -->
   <section class="menu fade-in" id="menu">
     <div class="container">
       <h2>Меню</h2>
@@ -305,7 +313,6 @@
     </div>
   </section>
 
-  <!-- НОВЫЙ БЛОК: Галерея -->
   <section class="gallery fade-in">
     <div class="container">
       <h2>Галерея</h2>
@@ -318,7 +325,6 @@
     </div>
   </section>
 
-  <!-- Контакты -->
   <section class="contacts fade-in" id="contacts">
     <div class="container">
       <h2>Как нас найти</h2>
@@ -340,7 +346,6 @@
   <button class="back-to-top" id="backToTop" title="Наверх">↑</button>
 
   <script>
-    // Тема
     const themeBtn = document.getElementById('themeBtn');
     const body = document.body;
     const currentTheme = localStorage.getItem('theme');
@@ -359,7 +364,6 @@
       }
     });
 
-    // Кнопка наверх
     const backToTopBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) backToTopBtn.classList.add('show');
@@ -369,7 +373,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Анимация
     const fadeElements = document.querySelectorAll('.fade-in');
     const fadeObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -379,7 +382,7 @@
         }
       });
     }, { threshold: 0.1 });
-    fadeElements.forEach(el => fadeObserver.observe(el));
+    fadeElements.forEach(fadeObserver.observe.bind(fadeObserver));
   </script>
 
 </body>
